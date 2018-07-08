@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic-ingress
+  namespace: ykchen
+spec:
+  backend:
+    serviceName: xbk-bot
+    servicePort: 80
+

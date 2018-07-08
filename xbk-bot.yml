@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: bot
-          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v1"
+          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v2"
           ports:
             - containerPort: 5000
           env:
