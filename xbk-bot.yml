@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: xbk-bot
+  namespace: ykchen
+  labels:
+    app: xbk-bot
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 5000
+  selector:
+    app: xbk-bot
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xbk-bot
+  namespace: ykchen
+spec:
+  selector:
+    matchLabels:
+      app: xbk-bot
+  template:
+    metadata:
+      labels:
+        app: xbk-bot
+    spec:
+      containers:
+        - name: bot
+          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v1"
+          ports:
+            - containerPort: 5000
+          env:
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_HOST
+              value: "redis"
+            - name: LINE_CHANNEL_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: line-secret
+                  key: access_token
+            - name: LINE_CHANNEL_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: line-secret
+                  key: secret
+            - name: THE_LINE_GROUP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: line-secret
+                  key: group
