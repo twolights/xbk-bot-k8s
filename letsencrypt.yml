@@ -1,0 +1,63 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt-staging
+  namespace: ykchen
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: "twolights@gmail.com"
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    http01: {}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt-production
+  namespace: ykchen
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: "twolights@gmail.com"
+    privateKeySecretRef:
+      name: letsencrypt-production
+    http01: {}
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: xbk-bot-staging
+  namespace: ykchen
+spec:
+  secretName: xbk-bot-staging
+  issuerRef:
+    name: letsencrypt-staging
+  commonName: xbk-bot.missya.tw
+  dnsNames:
+  - xbk-bot.missya.tw
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - xbk-bot.missya.tw
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: xbk-bot-production
+  namespace: ykchen
+spec:
+  secretName: xbk-bot-production
+  issuerRef:
+    name: letsencrypt-production
+  commonName: xbk-bot.missya.tw
+  dnsNames:
+  - xbk-bot.missya.tw
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - xbk-bot.missya.tw

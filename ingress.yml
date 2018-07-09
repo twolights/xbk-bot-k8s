@@ -1,10 +1,24 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: basic-ingress
+  name: main-ingress
   namespace: ykchen
-spec:
-  backend:
-    serviceName: xbk-bot
-    servicePort: 80
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "true"
+    kubernetes.io/tls-acme: "true"
+    certmanager.k8s.io/issuer: letsencrypt-production
+    kubernetes.io/ingress.class: "nginx"
 
+spec:
+  tls:
+    - hosts:
+      - xbk-bot.missya.tw
+      secretName: xbk-bot-production
+  rules:
+    - host: xbk-bot.missya.tw
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: xbk-bot
+              servicePort: 80
