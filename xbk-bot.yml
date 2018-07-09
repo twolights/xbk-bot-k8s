@@ -53,3 +53,28 @@ spec:
                 secretKeyRef:
                   name: line-secret
                   key: group
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: reset
+  namespace: ykchen
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: reset
+              image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v2"
+              args:
+                - python
+                - ./reset.py
+              env:
+                - name: THE_LINE_GROUP_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: line-secret
+                      key: group
+          restartPolicy: OnFailure
