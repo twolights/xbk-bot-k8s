@@ -72,6 +72,10 @@ spec:
                 - python
                 - ./reset.py
               env:
+                - name: REDIS_PORT
+                  value: "6379"
+                - name: REDIS_HOST
+                  value: "redis"
                 - name: THE_LINE_GROUP_ID
                   valueFrom:
                     secretKeyRef:
