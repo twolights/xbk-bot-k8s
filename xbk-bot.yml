@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: bot
-          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v5"
+          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v6"
           ports:
             - containerPort: 5000
           env:
@@ -60,14 +60,14 @@ metadata:
   name: reset
   namespace: ykchen
 spec:
-  schedule: "0 2 * * *"
+  schedule: "0 18 * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
             - name: reset
-              image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v5"
+              image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v6"
               args:
                 - python
                 - ./reset.py
