@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: bot
-          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v6"
+          image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v7"
           ports:
             - containerPort: 5000
           env:
@@ -67,7 +67,7 @@ spec:
         spec:
           containers:
             - name: reset
-              image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v6"
+              image: "asia.gcr.io/ch-web-dev/ykchen/xbk-bot:v7"
               args:
                 - python
                 - ./reset.py
